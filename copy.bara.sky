@@ -1,0 +1,55 @@
+core.workflow(
+    name = "gitlab",
+    origin = git.origin(
+        url = "ssh://gitlab.com/wpieterse/monorepository",
+        ref = "main",
+    ),
+    destination = git.destination(
+        url = "ssh://gitlab.com/wpieterse/games/idtech-3",
+        push = "main",
+        fetch = "main",
+    ),
+    mode = "SQUASH",
+    authoring = authoring.pass_thru("Wynand Pieterse <wpieterse2825@gmail.com>"),
+    origin_files = glob(
+        [
+            "games/idtech_3/**",
+        ],
+        exclude = [
+            "games/idtech_3/copy.bara.sky",
+            "games/idtech_3/sync.sh",
+        ],
+    ),
+    transformations = [
+        metadata.squash_notes(),
+        core.move("games/idtech_3", ""),
+    ],
+)
+
+core.workflow(
+    name = "github",
+    origin = git.origin(
+        url = "ssh://gitlab.com/wpieterse/monorepository",
+        ref = "main",
+    ),
+    destination = git.destination(
+        url = "ssh://github.com/wpieterse/game-idtech-3",
+        push = "main",
+        fetch = "main",
+    ),
+    mode = "SQUASH",
+    authoring = authoring.pass_thru("Wynand Pieterse <wpieterse2825@gmail.com>"),
+    origin_files = glob(
+        [
+            "games/idtech_3/**",
+        ],
+        exclude = [
+            "games/idtech_3/copy.bara.sky",
+            "games/idtech_3/sync.sh",
+        ],
+    ),
+    transformations = [
+        metadata.squash_notes(),
+        core.move("games/idtech_3", ""),
+    ],
+)
